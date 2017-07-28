@@ -12,7 +12,7 @@ namespace WebAppAuthentication.Controllers
     public class ClamisController : ApiController
     {
 
-        [Authorize]
+        [BearerAuthorize]
         [Route("")]
         public IHttpActionResult Get()
         {
@@ -22,7 +22,8 @@ namespace WebAppAuthentication.Controllers
                 Type = c.Type,
                 Value = c.Value
             });
-            return Ok(claims);
+            var userIdentity = User.Identity.ToUserIdentity();
+            return Ok(userIdentity);
         }
     }
 }

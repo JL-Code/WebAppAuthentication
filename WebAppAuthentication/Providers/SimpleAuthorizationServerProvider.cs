@@ -9,10 +9,16 @@ using WebAppAuthentication.Entities;
 namespace WebAppAuthentication
 {
     /// <summary>
-    /// 认证服务代理 继承OAuthAuthorizationServerProvider（包含4种认证授权方式）
+    /// 认证服务代理 继承OAuthAuthorizationServerProvider（包含4种认证授权方式） 
+    /// 生成令牌
     /// </summary>
     public class SimpleAuthorizationServerProvider : OAuthAuthorizationServerProvider
     {
+        /// <summary>
+        /// 验证客户端身份
+        /// </summary>
+        /// <param name="context"></param>
+        /// <returns></returns>
         public override Task ValidateClientAuthentication(OAuthValidateClientAuthenticationContext context)
         {
 
@@ -76,32 +82,10 @@ namespace WebAppAuthentication
         }
 
         /// <summary>
-        /// “GrantResourceOwnerCredentials”负责验证发送到授权服务器的令牌端点的用户名和密码，因此我们将使用我们之前创建的“AuthRepository”类，并调用方法“FindUser”来检查用户名和密码是否为有效。
+        /// “GrantResourceOwnerCredentials”负责验证发送到授权服务器的令牌端点的用户名和密码，
         /// </summary>
         /// <param name="context"></param>
         /// <returns></returns>
-        //public override async Task GrantResourceOwnerCredentials(OAuthGrantResourceOwnerCredentialsContext context)
-        //{
-        //    //为了允许在标记中间件提供程序上使用CORS，我们需要将标题“Access-Control-Allow-Origin”添加到Owin上下文中，如果您忘记了这一点，则当您尝试从浏览器调用它时，生成令牌将失败。不是这样，允许CORS用于令牌中间件提供程序不适用于下一步将添加的ASP.NET Web API。
-        //    context.OwinContext.Response.Headers.Add("Access-Control-Allow-Origin", new[] { "*" });
-
-        //    using (AuthRepository _repo = new AuthRepository())
-        //    {
-        //        IdentityUser user = await _repo.FindUser(context.UserName, context.Password);
-        //        if (user == null)
-        //        {
-        //            context.SetError("invalid_grant", "The user name or password is incorrect.");
-        //            return;
-        //        }
-        //    }
-
-        //    var identity = new ClaimsIdentity(context.Options.AuthenticationType);
-        //    identity.AddClaim(new Claim("sub", context.UserName));
-        //    identity.AddClaim(new Claim("role", "user"));
-
-        //    context.Validated(identity);
-
-        //}
         public override async Task GrantResourceOwnerCredentials(OAuthGrantResourceOwnerCredentialsContext context)
         {
             //从Owin上下文读取该客户端的允许原始值，然后使用此值将头“Access-Control-Allow-Origin”添加到Owin上下文响应中，通过执行此操作以及我们将阻止使用的任何JavaScript应用程序相同的客户端ID来构建另一个域上托管的JavaScript应用程序; 因为来自此应用程序的所有请求的来源将来自不同的域，后端API将返回405状态。
@@ -127,7 +111,9 @@ namespace WebAppAuthentication
             //为此用户生成一组声明以及包含客户端id和userName的身份验证属性，这些属性需要接下来的步骤。
             identity.AddClaim(new Claim(ClaimTypes.Name, context.UserName));
             identity.AddClaim(new Claim("sub", context.UserName));
-            identity.AddClaim(new Claim("role", "user"));
+            identity.AddClaim(new Claim("isadmin", "True"));
+            identity.AddClaim(new Claim("name", "mecode"));
+            identity.AddClaim(new Claim("company", "衡泽科技"));
 
             var props = new AuthenticationProperties(new Dictionary<string, string>
                 {
