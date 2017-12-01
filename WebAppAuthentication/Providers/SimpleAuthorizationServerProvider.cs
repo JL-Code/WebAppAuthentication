@@ -51,6 +51,7 @@ namespace WebAppAuthentication
                 return Task.FromResult<object>(null);
             }
 
+            //bs端 无法做到 只针对cs端
             if (client.ApplicationType == ApplicationTypeEnum.NativeConfidential)
             {
                 if (string.IsNullOrWhiteSpace(clientSecret))
@@ -110,23 +111,16 @@ namespace WebAppAuthentication
 
             //为此用户生成一组声明以及包含客户端id和userName的身份验证属性，这些属性需要接下来的步骤。
             identity.AddClaim(new Claim(ClaimTypes.Name, context.UserName));
-            identity.AddClaim(new Claim("sub", context.UserName));
             identity.AddClaim(new Claim("isadmin", "True"));
             identity.AddClaim(new Claim("name", "mecode"));
             identity.AddClaim(new Claim("company", "衡泽科技"));
 
             var props = new AuthenticationProperties(new Dictionary<string, string>
                 {
-                    {
-                        "as:client_id", context.ClientId ??string.Empty
-                    },
-                    {
-                        "userName", context.UserName
-                    }
-                });
-
+                    {"as:client_id", context.ClientId ??string.Empty }
+            });
             var ticket = new AuthenticationTicket(identity, props);
-            //现在当我们称之为“context.Validated（ticket）”时，会在幕后生成访问令牌
+            //调用“context.Validated（ticket）”时，会在幕后生成访问令牌
             context.Validated(ticket);
 
         }
@@ -146,11 +140,8 @@ namespace WebAppAuthentication
                 context.SetError("invalid_clientId", "Refresh token is issued to a different clientId.");
                 return Task.FromResult<object>(null);
             }
-
             // Change auth ticket for refresh token requests 改变授权票刷新令牌的请求
             var newIdentity = new ClaimsIdentity(context.Ticket.Identity);
-            newIdentity.AddClaim(new Claim("新的声明", "新的值"));
-
             var newTicket = new AuthenticationTicket(newIdentity, context.Ticket.Properties);
             context.Validated(newTicket);
 
@@ -158,18 +149,19 @@ namespace WebAppAuthentication
         }
 
         /// <summary>
-        /// 
+        /// 令牌生成成功的最后阶段调用
         /// </summary>
         /// <param name="context"></param>
         /// <returns></returns>
         public override Task TokenEndpoint(OAuthTokenEndpointContext context)
         {
+            //添加额外的key-value到token 的响应中
             foreach (KeyValuePair<string, string> property in context.Properties.Dictionary)
             {
                 context.AdditionalResponseParameters.Add(property.Key, property.Value);
             }
-
             return Task.FromResult<object>(null);
         }
+
     }
 }

@@ -34,7 +34,6 @@ namespace WebAppAuthentication
         public void ConfigureOAuth(IAppBuilder app)
         {
             //生成令牌的路径将是：“http：// localhost：port / token”。我们将看到我们将如何在后续步骤中发出HTTP POST请求以生成令牌。
-            //我们已经将令牌的到期时间设定为24小时，所以如果用户在发布时间24小时后尝试使用相同的令牌进行身份验证，那么他的请求将被拒绝，并返回HTTP状态代码401。
             //我们已经指定了如何验证用户要求在名为“SimpleAuthorizationServerProvider”的自定义类中的令牌的凭据的实现。
             //选项类提供控制授权服务器中间件行为所需的信息
             OAuthAuthorizationServerOptions OAuthServerOptions = new OAuthAuthorizationServerOptions()
@@ -42,14 +41,14 @@ namespace WebAppAuthentication
                 AllowInsecureHttp = true,
                 //客户端应用程序直接通过 OAuth 协议与之通信的请求路径。 必须以前导斜杠开头，如“/Token”。
                 //如果为客户端颁发了 client_secret，则必须将其提供给此终结点。
-                TokenEndpointPath = new PathString("/token"),
+                TokenEndpointPath = new PathString("/api/oauth2/token"),
                 //设置令牌过期时间
-                AccessTokenExpireTimeSpan = TimeSpan.FromMinutes(30),
+                AccessTokenExpireTimeSpan = TimeSpan.FromMinutes(2),
                 //令牌认证服务 用于处理授权服务器中间件引发的事件
                 Provider = new SimpleAuthorizationServerProvider(),
-                //生成方位令牌
+                //用于生成访问令牌的代理
                 //AccessTokenProvider = new SimpleAccessTokenProvider(),
-                //生成刷新令牌
+                //用于生成刷新令牌的代理
                 RefreshTokenProvider = new SimpleRefreshTokenProvider()
             };
             //向 OWIN Ｗeb 应用程序添加 OAuth2 授权服务器功能。 此中间件执行由 OAuth2 规范定义的授权和令牌终结点请求处理

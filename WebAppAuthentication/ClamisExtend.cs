@@ -25,7 +25,8 @@ namespace WebAppAuthentication
                 {
                     IsAdmin = Convert.ToBoolean(dict["isadmin"]),
                     Name = dict["name"]?.ToString(),
-                    Company = dict["company"]?.ToString()
+                    Company = dict["company"]?.ToString(),
+                    UserId = dict["userid"]?.ToString()
                 };
                 return userIdentity;
             }

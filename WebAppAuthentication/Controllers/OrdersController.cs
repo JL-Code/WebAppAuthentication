@@ -11,7 +11,7 @@ namespace WebAppAuthentication.Controllers
     [RoutePrefix("api/Orders")]
     public class OrdersController : ApiController
     {
-        [Authorize]
+        [BearerAuthorize]
         [Route("")]
         public IHttpActionResult Get()
         {

@@ -12,6 +12,14 @@ namespace WebAppAuthentication
     /// </summary>
     public class SimpleAccessTokenProvider : AuthenticationTokenProvider
     {
-        
+        public override Task CreateAsync(AuthenticationTokenCreateContext context)
+        {
+            return base.CreateAsync(context);
+        }
+
+        public override Task ReceiveAsync(AuthenticationTokenReceiveContext context)
+        {
+            return base.ReceiveAsync(context);
+        }
     }
 }

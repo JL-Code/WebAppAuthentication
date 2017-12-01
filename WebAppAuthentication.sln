@@ -11,6 +11,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JWTWebAuthentication", "JWT
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OAuth.Pack", "OAuth.Pack\OAuth.Pack.csproj", "{114B2372-A1B9-40BB-9CAA-1682E29A397E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JwtCustomAuth", "JwtCustomAuth\JwtCustomAuth.csproj", "{7542E3BF-B8FF-4994-94DE-BA8FA265940F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTestProject", "UnitTestProject\UnitTestProject.csproj", "{40FAA436-F4A1-4D58-9560-730C1ED4B5DF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +37,14 @@ Global
 		{114B2372-A1B9-40BB-9CAA-1682E29A397E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{114B2372-A1B9-40BB-9CAA-1682E29A397E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{114B2372-A1B9-40BB-9CAA-1682E29A397E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7542E3BF-B8FF-4994-94DE-BA8FA265940F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7542E3BF-B8FF-4994-94DE-BA8FA265940F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7542E3BF-B8FF-4994-94DE-BA8FA265940F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7542E3BF-B8FF-4994-94DE-BA8FA265940F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{40FAA436-F4A1-4D58-9560-730C1ED4B5DF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{40FAA436-F4A1-4D58-9560-730C1ED4B5DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{40FAA436-F4A1-4D58-9560-730C1ED4B5DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{40FAA436-F4A1-4D58-9560-730C1ED4B5DF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

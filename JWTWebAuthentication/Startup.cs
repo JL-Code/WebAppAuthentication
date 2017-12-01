@@ -47,13 +47,14 @@ namespace JWTWebAuthentication
                 AllowInsecureHttp = true
 #endif
             };
+            
             var jwtOptions = new JwtBearerAuthenticationOptions()
             {
                 AuthenticationMode = AuthenticationMode.Active,
                 AllowedAudiences = new[] { "ng" },
                 IssuerSecurityTokenProviders = new IIssuerSecurityTokenProvider[]
                 {
-                  new MyIIssuerSecurityTokenProvider("mecode")
+                  new 
                 }
             };
             //注册Owin中间件发布令牌
