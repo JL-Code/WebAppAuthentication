@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26430.16
+VisualStudioVersion = 15.0.27130.2010
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebAppAuthentication", "WebAppAuthentication\WebAppAuthentication.csproj", "{EAA6332F-AD16-4B4F-A784-6E1807F77973}"
 EndProject
@@ -12,8 +12,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OAuth.Pack", "OAuth.Pack\OAuth.Pack.csproj", "{114B2372-A1B9-40BB-9CAA-1682E29A397E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JwtCustomAuth", "JwtCustomAuth\JwtCustomAuth.csproj", "{7542E3BF-B8FF-4994-94DE-BA8FA265940F}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTestProject", "UnitTestProject\UnitTestProject.csproj", "{40FAA436-F4A1-4D58-9560-730C1ED4B5DF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,12 +39,11 @@ Global
 		{7542E3BF-B8FF-4994-94DE-BA8FA265940F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7542E3BF-B8FF-4994-94DE-BA8FA265940F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7542E3BF-B8FF-4994-94DE-BA8FA265940F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{40FAA436-F4A1-4D58-9560-730C1ED4B5DF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{40FAA436-F4A1-4D58-9560-730C1ED4B5DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{40FAA436-F4A1-4D58-9560-730C1ED4B5DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{40FAA436-F4A1-4D58-9560-730C1ED4B5DF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {0968617D-3A78-4807-9D31-35A8C43855B9}
 	EndGlobalSection
 EndGlobal

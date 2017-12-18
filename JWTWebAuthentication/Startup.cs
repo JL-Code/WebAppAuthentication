@@ -54,7 +54,7 @@ namespace JWTWebAuthentication
                 AllowedAudiences = new[] { "ng" },
                 IssuerSecurityTokenProviders = new IIssuerSecurityTokenProvider[]
                 {
-                  new 
+                    new MyIIssuerSecurityTokenProvider("mecode")
                 }
             };
             //注册Owin中间件发布令牌
