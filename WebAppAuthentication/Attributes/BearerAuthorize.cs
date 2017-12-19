@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Web;
-using System.Web.Http;
+﻿using System.Web.Http;
 using System.Web.Http.Controllers;
 
 namespace WebAppAuthentication
@@ -15,7 +9,7 @@ namespace WebAppAuthentication
     public class BearerAuthorize : AuthorizeAttribute
     {
         /// <summary>
-        /// 为操作授权时调用
+        /// 授权时调用
         /// </summary>
         /// <param name="actionContext"></param>
         public override void OnAuthorization(HttpActionContext actionContext)

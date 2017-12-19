@@ -9,8 +9,7 @@ using WebAppAuthentication.Entities;
 namespace WebAppAuthentication
 {
     /// <summary>
-    /// 认证服务代理 继承OAuthAuthorizationServerProvider（包含4种认证授权方式） 
-    /// 生成令牌
+    /// 授权服务代理 继承OAuthAuthorizationServerProvider（包含4种认证授权方式） 
     /// </summary>
     public class SimpleAuthorizationServerProvider : OAuthAuthorizationServerProvider
     {
@@ -47,7 +46,7 @@ namespace WebAppAuthentication
 
             if (client == null)
             {
-                context.SetError("invalid_clientId", string.Format("Client '{0}' is not registered in the system.", context.ClientId));
+                context.SetError("无效的客户端信息", string.Format("Client '{0}' is not registered in the system.", context.ClientId));
                 return Task.FromResult<object>(null);
             }
 
@@ -56,14 +55,14 @@ namespace WebAppAuthentication
             {
                 if (string.IsNullOrWhiteSpace(clientSecret))
                 {
-                    context.SetError("invalid_clientId", "Client secret should be sent.");
+                    context.SetError("无效的客户端信息", "Client secret should be sent.");
                     return Task.FromResult<object>(null);
                 }
                 else
                 {
                     if (client.Secret != Helper.GetHash(clientSecret))
                     {
-                        context.SetError("invalid_clientId", "Client secret is invalid.");
+                        context.SetError("无效的客户端信息", "Client secret is invalid.");
                         return Task.FromResult<object>(null);
                     }
                 }
@@ -71,7 +70,7 @@ namespace WebAppAuthentication
 
             if (!client.Active)
             {
-                context.SetError("invalid_clientId", "Client is inactive.");
+                context.SetError("无效的客户端信息", "Client is inactive.");
                 return Task.FromResult<object>(null);
             }
             //在Owin上下文中存储客户端允许的起始和刷新令牌生命周期值，以便在生成刷新令牌并设置其到期时间后可用。
@@ -102,22 +101,24 @@ namespace WebAppAuthentication
 
                 if (user == null)
                 {
-                    context.SetError("invalid_grant", "The user name or password is incorrect.");
+                    context.SetError("无效的授权", "用户名或密码无效。");
                     return;
                 }
             }
 
             var identity = new ClaimsIdentity(context.Options.AuthenticationType);
 
-            //为此用户生成一组声明以及包含客户端id和userName的身份验证属性，这些属性需要接下来的步骤。
+            #region 为此用户生成一组声明以及包含客户端id和userName的身份验证属性，这些属性需要接下来的步骤。(需要封装)
+
             identity.AddClaim(new Claim(ClaimTypes.Name, context.UserName));
             identity.AddClaim(new Claim("isadmin", "True"));
             identity.AddClaim(new Claim("name", "mecode"));
             identity.AddClaim(new Claim("company", "衡泽科技"));
 
-            var props = new AuthenticationProperties(new Dictionary<string, string>
-                {
-                    {"as:client_id", context.ClientId ??string.Empty }
+            #endregion
+
+            var props = new AuthenticationProperties(new Dictionary<string, string>{
+                {"as:client_id", context.ClientId ?? string.Empty }
             });
             var ticket = new AuthenticationTicket(identity, props);
             //调用“context.Validated（ticket）”时，会在幕后生成访问令牌
@@ -137,7 +138,7 @@ namespace WebAppAuthentication
 
             if (originalClient != currentClient)
             {
-                context.SetError("invalid_clientId", "Refresh token is issued to a different clientId.");
+                context.SetError("无效的客户端信息", "刷新令牌是来自一个不同的客户ID。");
                 return Task.FromResult<object>(null);
             }
             // Change auth ticket for refresh token requests 改变授权票刷新令牌的请求
@@ -149,7 +150,7 @@ namespace WebAppAuthentication
         }
 
         /// <summary>
-        /// 令牌生成成功的最后阶段调用
+        /// 令牌生成成功的最后阶段调用 可以添加额外的参数返回给客户端
         /// </summary>
         /// <param name="context"></param>
         /// <returns></returns>

@@ -36,18 +36,20 @@ namespace WebAppAuthentication
             //生成令牌的路径将是：“http：// localhost：port / token”。我们将看到我们将如何在后续步骤中发出HTTP POST请求以生成令牌。
             //我们已经指定了如何验证用户要求在名为“SimpleAuthorizationServerProvider”的自定义类中的令牌的凭据的实现。
             //选项类提供控制授权服务器中间件行为所需的信息
-            OAuthAuthorizationServerOptions OAuthServerOptions = new OAuthAuthorizationServerOptions()
+            var OAuthServerOptions = new OAuthAuthorizationServerOptions()
             {
+                //[true]时 允许授权和令牌请求到达HTTP URI地址，并且允许传入redirect_uri授权请求参数有HTTP URI地址。
                 AllowInsecureHttp = true,
-                //客户端应用程序直接通过 OAuth 协议与之通信的请求路径。 必须以前导斜杠开头，如“/Token”。
-                //如果为客户端颁发了 client_secret，则必须将其提供给此终结点。
-                TokenEndpointPath = new PathString("/api/oauth2/token"),
+                //客户端应用程序直接通过 OAuth 协议与之通信的请求路径。 必须以前导斜杠开头，如“/Token”。 如果为客户端颁发了 client_secret，则必须将其提供给此终结点。
+                TokenEndpointPath = new PathString("/api/token"),
+                //授权路径
+                AuthorizeEndpointPath = new PathString("/api/authorize"),
                 //设置令牌过期时间
-                AccessTokenExpireTimeSpan = TimeSpan.FromMinutes(2),
-                //令牌认证服务 用于处理授权服务器中间件引发的事件
+                AccessTokenExpireTimeSpan = TimeSpan.FromMinutes(10),
+                //令牌授权服务 用于处理授权服务器中间件引发的事件
                 Provider = new SimpleAuthorizationServerProvider(),
-                //用于生成访问令牌的代理
-                //AccessTokenProvider = new SimpleAccessTokenProvider(),
+                //认证服务代理
+                AccessTokenProvider = new SimpleAccessTokenProvider(),
                 //用于生成刷新令牌的代理
                 RefreshTokenProvider = new SimpleRefreshTokenProvider()
             };
