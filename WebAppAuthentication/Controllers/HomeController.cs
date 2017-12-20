@@ -8,8 +8,21 @@ namespace WebAppAuthentication.Controllers
 {
     public class HomeController : Controller
     {
-        // GET: Home
+        [Authorize]
         public ActionResult Index()
+        {
+            return View();
+        }
+
+        [AllowAnonymous]
+        public ActionResult Login()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        public ActionResult Login(string account, string password)
         {
             return View();
         }
