@@ -1,16 +1,13 @@
 ﻿using Microsoft.Owin.Security.Infrastructure;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using System.Web;
 using WebAppAuthentication.Entities;
 
 namespace WebAppAuthentication
 {
-    /// <summary>
-    /// 刷新令牌代理
-    /// </summary>
+        /// <summary>
+        /// 刷新令牌代理
+        /// </summary>
     public class SimpleRefreshTokenProvider : IAuthenticationTokenProvider
     {
         public void Create(AuthenticationTokenCreateContext context)
